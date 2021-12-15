@@ -18,6 +18,7 @@ char ctrlKey = KEY_LEFT_GUI;
 int currentStateCLK;
 int previousStateCLK; 
 
+int functionStartStop = 0;        // Start / stop hotkey
 int functionFast = 0;        // fast hotkey
 int functionInout = 0;       // in/out hotkey
 
@@ -75,7 +76,10 @@ void loop() {
   if ( buttonPushCounter > 0 && (millis() - lastClickTime) >  buttonClickInterval) {
     Serial.print("Counter: " + String(buttonPushCounter) + " ");
     switch (buttonPushCounter) {
-      case 1: // one click turns fast ON/OFF
+      case 1: // one click play / sytop
+        Keyboard.press(32); // press space
+        break;
+      case 2: // one click turns fast ON/OFF
         switch (functionFast) {
         case 0:
           // turn fast forward and rewind ON
@@ -89,7 +93,7 @@ void loop() {
           break;
         }
         break;
-      case 2: // two clicks turn INOUT ON/OFF
+      case 3: // two clicks turn INOUT ON/OFF
         switch (functionInout) {
         case 0:
           // send in hotkey
@@ -105,9 +109,10 @@ void loop() {
           break;
         }
         break;
-      case 3: // clear INOUT
+      case 4: // clear INOUT
         Keyboard.press(KEY_LEFT_ALT);
         Keyboard.press('x');
+        functionInout = 0;
         break;
     }
     buttonPushCounter = 0;
@@ -115,5 +120,6 @@ void loop() {
   
   lastButtonState = buttonState;(inputSW);
   Keyboard.releaseAll();
+}
 }
 ```
