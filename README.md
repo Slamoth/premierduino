@@ -2,8 +2,7 @@
 Arduino Adobe Premier USB JogWheel Controller
 - 1 Click: Start Stop
 - 2 Click: Turn fast forwared and rewind ON/OFF
-- 3 Clicks: Selects IN position
-- Second 3 Clicks: Selects OUT position
+- 3 Clicks: Selects IN position and Second 3 Clicks: Selects OUT position
 - 4 Clicks: Reset IN/OUT points
 
 # Code
