@@ -1,4 +1,4 @@
-# premierdunio
+# premierduino
 Arduino Adobe Premier USB JogWheel Controller
 - 1 Click: Start / Stop
 - 2 Click: Turn fast forwared and rewind ON/OFF
