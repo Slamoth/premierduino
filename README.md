@@ -5,7 +5,7 @@ Adventures with an Arduino and an encoder !
 - 2 Click: Turn fast forwared and rewind ON/OFF
 - 3 Clicks: Selects IN position and Second 3 Clicks: Selects OUT position
 - 4 Clicks: Reset IN/OUT points
-- 5 click -> set JogWheel for zoom in/out ON/OFF
+- 5 Clicks -> set JogWheel for zoom in/out ON/OFF
 
 # Code
 ```
