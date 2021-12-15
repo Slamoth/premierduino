@@ -35,7 +35,7 @@ void setup() {
   pinMode (inputCLK,INPUT);
   pinMode (inputDT,INPUT);
   pinMode(inputSW, INPUT_PULLUP);
-  Serial.begin (115200);
+//  Serial.begin (115200);
 
   previousStateCLK = digitalRead(inputCLK);
   Keyboard.begin();
