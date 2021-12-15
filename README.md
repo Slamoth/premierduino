@@ -1,5 +1,6 @@
 # premierduino
-Arduino Adobe Premier USB JogWheel Controller
+Adventures with an Arduino and an encoder !
+
 - 1 Click: Start / Stop
 - 2 Click: Turn fast forwared and rewind ON/OFF
 - 3 Clicks: Selects IN position and Second 3 Clicks: Selects OUT position
