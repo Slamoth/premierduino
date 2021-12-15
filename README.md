@@ -1,9 +1,10 @@
 # premierdunio
 Arduino Adobe Premier USB JogWheel Controller
-- 1 Click: Start Stop
+- 1 Click: Start / Stop
 - 2 Click: Turn fast forwared and rewind ON/OFF
 - 3 Clicks: Selects IN position and Second 3 Clicks: Selects OUT position
 - 4 Clicks: Reset IN/OUT points
+- 5 click -> set JogWheel for zoom in/out ON/OFF
 
 # Code
 ```
@@ -16,6 +17,11 @@ char ctrlKey = KEY_LEFT_GUI;
 
 int currentStateCLK;
 int previousStateCLK; 
+
+
+int jogFunction = 0; // JogWheel function selector
+// 0: time
+// 1: zoom
 
 int functionStartStop = 0;        // Start / stop hotkey
 int functionFast = 0;        // fast hotkey
@@ -45,16 +51,24 @@ void loop() {
 
   // jog wheel codes
   currentStateCLK = digitalRead(inputCLK);
-  if (currentStateCLK != previousStateCLK){ 
+  if (currentStateCLK != previousStateCLK) {
     if (functionFast == 1) {
       Keyboard.press(KEY_LEFT_SHIFT);
     }
     if (digitalRead(inputDT) != currentStateCLK) { 
       // CCW rotation
-      Keyboard.press(KEY_LEFT_ARROW);
+      if (jogFunction == 0) {
+        Keyboard.press(KEY_LEFT_ARROW);
+      } else {
+        Keyboard.press('-');
+      }
     } else {
       // CW rotation
-      Keyboard.press(KEY_RIGHT_ARROW);
+      if (jogFunction == 0) {
+        Keyboard.press(KEY_RIGHT_ARROW);
+      } else {
+        Keyboard.press('=');
+      }
     }
   }
   previousStateCLK = currentStateCLK;
@@ -75,10 +89,10 @@ void loop() {
   if ( buttonPushCounter > 0 && (millis() - lastClickTime) >  buttonClickInterval) {
     Serial.print("Counter: " + String(buttonPushCounter) + " ");
     switch (buttonPushCounter) {
-      case 1: // one click play / sytop
+      case 1: // play / stop
         Keyboard.press(32); // press space
         break;
-      case 2: // one click turns fast ON/OFF
+      case 2: // fast ON/OFF
         switch (functionFast) {
         case 0:
           // turn fast forward and rewind ON
@@ -92,7 +106,7 @@ void loop() {
           break;
         }
         break;
-      case 3: // two clicks turn INOUT ON/OFF
+      case 3: // INOUT ON/OFF
         switch (functionInout) {
         case 0:
           // send in hotkey
@@ -113,12 +127,25 @@ void loop() {
         Keyboard.press('x');
         functionInout = 0;
         break;
+      case 5: // Zoom
+        switch (jogFunction) {
+        case 0:
+          // turn fast forward and rewind ON
+          jogFunction = 1;
+          break;
+        case 1:
+          // turn fast forward and rewind OFF
+          jogFunction = 0;
+          break;
+        default:
+          break;
+        }
+        break;
     }
     buttonPushCounter = 0;
   }
   
   lastButtonState = buttonState;(inputSW);
   Keyboard.releaseAll();
-}
 }
 ```
